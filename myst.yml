@@ -11,6 +11,5 @@ project:
     - file: 03-scaling.md
     - file: 04-visualizing.md
     - file: 05-containers.md
-    - file: 06-bonus.md
 site:
   template: book-theme

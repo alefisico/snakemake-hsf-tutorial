@@ -1,14 +1,12 @@
 # Introduction to Snakemake
 
-:::{admonition} Questions
-:class: tip
+:::{tip} Questions
 - What is a Snakefile?
 - How do I define a single processing step?
 - How do I execute a rule?
 :::
 
-:::{admonition} Objectives
-:class: note
+:::{note} Objectives
 - Create a `Snakefile`.
 - Write a valid Snakemake rule with `input`, `output`, and `shell`.
 - Execute a specific target file.
@@ -33,9 +31,7 @@ In HEP analysis, we rarely run a single script. We create an analysis chain: **S
 * **Automation:** Snakemake is **file-based**. It looks at the "last modified" timestamp of your files. If you change your plotting script, it won't re-run the 5-hour skimming step unless you ask it to.
 * **Workflow Isolation:** All your code can run independently of Snakemake. You can think of Snakemake as a "workflow manager" that orchestrates your existing scripts (like a bash script on steroids). LAW requires you to write your tasks as Luigi Tasks, which can be more cumbersome.
 
-:::{note}
-### Credits and Documentation
-
+:::{note} Credits and Documentation
 Snakemake is an open-source project created by **Johannes Köster** (University of Duisburg-Essen) in 2012. While this tutorial focuses on HEP-specific use cases, the official documentation is comprehensive and covers thousands of features.
 
 *   **Documentation**: [https://snakemake.github.io](https://snakemake.github.io)
@@ -160,8 +156,7 @@ snakemake --cores 1 counts.txt
 This will be the case for most users following this tutorial outside of the pixi environment.
 :::
 
-:::{admonition} Challenge: Syntax Error Hunt
-:class: warning
+:::{warning} Challenge: Syntax Error Hunt
 Intentionally break your indentation (remove a space before `input:`). Run the command again.
 
 What error does Snakemake give you?
@@ -171,8 +166,7 @@ This `IndentationError` is the most common error you will encounter.
 :::
 :::
 
-:::{admonition} Keypoints
-:class: important
+:::{important} Keypoints
 - A `Snakefile` defines the workflow.
 - A `rule` contains `input`, `output`, and a `shell` command.
 - You execute the workflow by asking for the **output file**, not the rule name.

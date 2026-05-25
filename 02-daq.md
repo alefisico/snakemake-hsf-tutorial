@@ -1,14 +1,12 @@
 # Chaining Rules (The DAG)
 
-:::{admonition} Questions
-:class: tip
+:::{tip} Questions
 - How does Snakemake connect different rules?
 - What is a DAG?
 - How does Snakemake know what to re-run?
 :::
 
-:::{admonition} Objectives
-:class: note
+:::{note} Objectives
 - Connect two rules by matching input/output filenames.
 - Use the `rule all` convention.
 - Observe "Lazy Execution" in action.
@@ -77,8 +75,7 @@ Now you can simply run:
 pixi run snakemake --cores 1
 ```
 
-:::{admonition} Challenge: Lazy Execution (The "Why")
-:class: warning
+:::{warning} Challenge: Lazy Execution (The "Why")
 1. Run `pixi run snakemake --cores 1` again.
 
 What happens? 
@@ -113,8 +110,7 @@ If you had a workflow with 500 rules and you only modified the input for rule 49
 :::
 :::
 
-:::{admonition} Keypoints
-:class: important
+:::{important} Keypoints
 - **Declarative Workflows**: Unlike bash scripts where you define the *order* of steps, in Snakemake you define the *dependencies* (inputs/outputs), and Snakemake figures out the order (DAG).
 - **The `all` Rule**: It is convention to include a rule named `all` at the top of the workflow to define the final targets of your analysis.
 - **Lazy Execution**: Snakemake only re-runs a rule if the output file is missing or if the input files have changed (have a newer timestamp) since the last run.

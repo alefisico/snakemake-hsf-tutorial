@@ -1,14 +1,12 @@
 # Containerized Execution
 
-:::{admonition} Questions
-:class: tip
+:::{tip} Questions
 - How do I run specific steps of my analysis in a controlled environment?
 - How can I use ROOT or specific Python versions without installing them locally?
 - How does Snakemake handle Apptainer/Singularity?
 :::
 
-:::{admonition} Objectives
-:class: note
+:::{note} Objectives
 - Use the `container:` directive to link a rule to a Docker/Apptainer image.
 - Execute a workflow where different rules use different environments.
 - Understand the `--use-apptainer` (or `--use-singularity`) flag.
@@ -22,8 +20,7 @@ Snakemake makes this seamless. You can tell a specific rule to run inside a cont
 
 ---
 
-:::{note}
-**Instructor Notes:**
+:::{note} Instructor Notes
 - **The cluster connection:** This is where you should mention that on most HEP clusters (like LXPLUS or regional computing centers), `singularity` or `apptainer` is already installed. This makes their local tutorial 100% transferable to the big machines.
 - **Binding directories:** Students often ask how the container sees their files. It's worth a small note that Snakemake automatically "binds" the project directory so the container sees the code and data.
 :::
@@ -59,9 +56,7 @@ When you run Snakemake with the `--use-apptainer` flag:
 - **Isolation**: Rule A can use `python:2.7` while Rule B uses `python:3.11`. *No more version conflicts!*
 - **No Installation**: You don't need to install `ROOT` or other complex software on your machine; you just need to point to the image.
 
-:::{note}
-### A Note on Apptainer Installation
-
+:::{note} A Note on Apptainer Installation
 While we are using **Pixi** to manage Snakemake and our local Python tools, Pixi does not typically install Apptainer/Singularity itself. This is because Apptainer requires specific system-level permissions to manage containers safely. 
 
 * **On your laptop:** You must have Apptainer installed at the system level (e.g., via homebrew on macOS with a virtual machine, or your Linux distribution's package manager). 
@@ -134,8 +129,7 @@ pixi run snakemake --cores 1 --use-apptainer --apptainer-args "--bind /eos:/eos 
 
 This tells Apptainer: "Poke a hole in the container so I can see `/eos` and `/cvmfs` from the outside."
 
-:::{admonition} Challenge: Different Containers for Different Tasks
-:class: warning
+:::{warning} Challenge: Different Containers for Different Tasks
 Imagine your `skim_data` rule requires an old C++ library only available in a legacy environment, but your `plot_results` rule needs a modern `coffea` environment.
 
 1. Can you assign different `container:` directives to different rules in the same `Snakefile`?
@@ -147,8 +141,7 @@ Yes! Snakemake is designed for this. It will start the correct container for eac
 :::
 :::
 
-:::{admonition} Keypoints
-:class: important
+:::{important} Keypoints
 - **container:**: A rule-level directive that specifies the Docker/Apptainer image to use.
 - **--use-apptainer**: The command-line flag required to enable container execution.
 - **--apptainer-args**: Use this to bind external storage paths (like `/eos` or `/cvmfs`) so the container can see them.

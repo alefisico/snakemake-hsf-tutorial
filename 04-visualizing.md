@@ -1,14 +1,12 @@
 # Visualizing the Workflow
 
-:::{admonition} Questions
-:class: tip
+:::{tip} Questions
 - How can I see the dependencies between my rules?
 - What is a Directed Acyclic Graph (DAG)?
 - How do I preview what Snakemake *intends* to do?
 :::
 
-:::{admonition} Objectives
-:class: note
+:::{note} Objectives
 - Use the `--dag` flag to generate a visualization of the analysis.
 - Understand the difference between the Rule Graph and the File Graph.
 - Use dry-runs (`-n`) to verify the execution plan.
@@ -75,8 +73,7 @@ pixi run snakemake --dag | pixi run dot -Tpng > fig/dag.png
 
 ![DAG Visualization](fig/dag.png)
 
-:::{admonition} Challenge: Identifying the Bottleneck
-:class: warning
+:::{warning} Challenge: Identifying the Bottleneck
 Look at your DAG. If you were to run this on a machine with only **1 core**, how many steps would it take? If you had **4 cores**, how would the timing change?
 
 :::{dropdown} Solution
@@ -84,9 +81,7 @@ With 1 core, Snakemake runs every job sequentially. With 4 cores, Snakemake can 
 :::
 :::
 
-:::{note}
-### Rule Graph vs. File Graph
-
+:::{note} Rule Graph vs. File Graph
 If you have 1,000 samples, the `--dag` command will produce a giant PDF with 1,000 boxes, which is unreadable. To see a simplified version that only shows how the rules connect (ignoring the individual samples), use:
 
 ```bash
@@ -129,8 +124,7 @@ pixi run snakemake -n -p --forceall
 ```
 :::
 
-:::{admonition} Keypoints
-:class: important
+:::{important} Keypoints
 - **DAG**: A visual map of your analysis dependencies.
 - **Dry-run (-n)**: Always perform a dry-run to verify the plan before executing.
 - **Rule Graph**: A simplified visualization showing the relationship between rules rather than individual files.

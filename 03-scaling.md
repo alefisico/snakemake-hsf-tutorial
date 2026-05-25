@@ -1,14 +1,12 @@
 # Scaling with Wildcards
 
-:::{admonition} Questions
-:class: tip
+:::{tip} Questions
 - How can I use one rule to process multiple different samples?
 - What is a wildcard and how does Snakemake "fill" it?
 - How do I tell Snakemake to generate a list of all my target files?
 :::
 
-:::{admonition} Objectives
-:class: note
+:::{note} Objectives
 - Replace hardcoded filenames with `{wildcards}`.
 - Use the `expand()` function to generate lists of outputs.
 - Understand how Snakemake "pattern matches" files on disk.
@@ -58,9 +56,7 @@ rule all:
 
 The `expand()` function takes a pattern and replaces the placeholders with the values in your list. The code above produces: `["skimmed/DYJets.txt", "skimmed/TTbar.txt", "skimmed/WJets.txt"]`
 
-:::{note}
-### Wildcards vs. Expand Variables
-
+:::{note} Wildcards vs. Expand Variables
 Notice a subtle difference:
 
 1. In `rule skim_data`, we used `{sample}`. This is a **Wildcard** (Snakemake figures it out based on the filename).
@@ -73,8 +69,7 @@ They do not need to match! `expand()` happens before the rules run to generate t
 
 ## Activity: Processing Multiple Datasets
 
-:::{note}
-**Instructor Notes:**
+:::{note} Instructor Notes
 - **Parallelism:** This is the best moment to explain why the `--cores` flag matters. In HEP, we are used to sending 100 jobs to Condor. Here, we show they can run 4 (or 8, or 16) jobs in parallel locally on their laptop with zero extra effort.
 - **The "Pattern Matching" Warning:** Students often try to put wildcards in the `input` that aren't in the `output`. I would emphasize that Snakemake works **backwards**: it sees a file it wants (the output) and then tries to figure out what the input should be.
 :::
@@ -125,8 +120,7 @@ echo -e "Background\nBackground" > raw/Data.txt
 pixi run snakemake --cores 4
 ```
 
-:::{admonition} Challenge: Adding a new sample
-:class: warning
+:::{warning} Challenge: Adding a new sample
 Add a new dataset called `WJets` to your `DATASETS` list.
 
 1. Create the dummy file `raw/WJets.txt` with some "Signal" lines.
@@ -137,8 +131,7 @@ Observe how Snakemake only runs the rules for the new `WJets` sample and skips t
 :::
 :::
 
-:::{admonition} Keypoints
-:class: important
+:::{important} Keypoints
 - **Wildcards**: Use `{name}` in filenames to define a generic rule.
 - **Constraints**: Snakemake fills wildcards by looking at the *output* you requested and propagating that value to the *input*.
 - **expand()**: A Python function that generates a list of filenames from a pattern. It is commonly used in `rule all` to define the final targets.

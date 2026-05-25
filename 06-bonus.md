@@ -1,19 +1,19 @@
 # Bonus: The HEP Analysis Challenge
 
-```{admonition} Questions
+:::{admonition} Questions
 :class: tip
 - How do I integrate existing HEP analysis repositories into Snakemake?
 - How do I handle scripts that produce non-deterministic outputs (timestamps)?
 - How do I chain different software environments (Coffea $\rightarrow$ Combine)?
-```
+:::
 
-```{admonition} Objectives
+:::{admonition} Objectives
 :class: note
 - Clone and configure a $t\bar{t}\gamma$ analysis repository.
 - Write a rule to parallelize the processing step.
 - "Patch" the aggregation step to accept Snakemake inputs.
 - Execute a final statistical fit using a dedicated statistics container.
-```
+:::
 
 ## The Challenge: $t\bar{t}\gamma$ Cross Section
 
@@ -36,13 +36,13 @@ git clone -b facilitators2026 https://github.com/fnallpc/ttgamma_longexercise.gi
 
 Now, check the contents. Notice that we are using the `facilitators2026` branch (the solutions branch). You should see `runFullDataset.py` and a `ttgamma/` directory.
 
-```{note}
+:::{note}
 Notice that we are trying to give a "realistic" experience in this tutorial. The code is not originally designed for Snakemake, so we will have to make some adjustments and "patches" to make it work. This is a common scenario when integrating legacy code into modern workflows.
-```
+:::
 
 ### Step 1: The Processing Rule
 
-```{dropdown} Patch 1: Removing Timestamps from `runFullDataset.py`
+:::{dropdown} Patch 1: Removing Timestamps from `runFullDataset.py`
 Open `ttgamma_longexercise/runFullDataset.py` and scroll to the bottom. You will see lines that look like this:
 
 ```python
@@ -63,7 +63,7 @@ Open `ttgamma_longexercise/runFullDataset.py` and scroll to the bottom. You will
 ```
 
 Now the output is predictable: `output_MCTTGamma.coffea`.
-```
+:::
 
 We can write a clean Snakemake file with the following rules. We will define a rule that runs `runFullDataset.py` for each group (e.g., `MCTTGamma`, `Data`, etc.) and produces a `.coffea` file for each.
 
@@ -89,7 +89,7 @@ rule run_coffea:
 
 The second step of the analysis is to aggregate the `.coffea` files and convert them to `ROOT`.
 
-```{dropdown} Patch 2: Enabling Arguments in `save_to_root.py`
+:::{dropdown} Patch 2: Enabling Arguments in `save_to_root.py`
 The original script `ttgamma_longexercise/save_to_root.py` has a major issue for automation and we will modify it.
 
 ```python
@@ -107,7 +107,7 @@ outputMC = accumulate(
 
 outputData = util.load("results/output_Data.coffea")
 ```
-```
+:::
 
 The second step of the analysis is to aggregate the `.coffea` files and convert them to ROOT. After you modify the code to remove the timestamp, we can write a Snakemake rule that depends on all the `.coffea` files and runs the aggregation script.
 
@@ -177,7 +177,7 @@ Run it!
 pixi run snakemake --cores 4 --use-apptainer
 ```
 
-```{note}
+:::{note}
 ### What just happened?
 
 1. Snakemake saw you wanted the Fit.
@@ -187,13 +187,13 @@ pixi run snakemake --cores 4 --use-apptainer
 5. Finally, it switched to the Combine container and performed the fit.
 
 You have just orchestrated a full HEP analysis involving Data, MC, Systematics, and Statistics with one command.
-```
+:::
 
 ## Comparing Snakefile with a Bash Script
 
 Let's compare this with how you would do it in a bash script.
 
-```{dropdown} Full Snakefile for Reference
+:::{dropdown} Full Snakefile for Reference
 ```python
 # Define the groups (found in runFullDataset.py)
 MC_GROUPS = ["MCTTGamma", "MCTTbar1l", "MCTTbar2l", "MCSingleTop", "MCZJets", "MCWJets", "MCOther"]
@@ -247,9 +247,9 @@ rule run_combine:
             combine -M FitDiagnostics workspace.root --saveShapes --saveWithUncertainties"
         """
 ```
-```
+:::
 
-```{dropdown} Full Bash Script for Reference
+:::{dropdown} Full Bash Script for Reference
 ```bash
 #!/bin/bash
 
@@ -326,7 +326,7 @@ APPTAINER_SHELL=$(which bash) apptainer exec -B .:/home/cmsusr/analysis \
 
 echo "Analysis Complete!"
 ```
-```
+:::
 
 ### Key Differences to Highlight
 
@@ -342,10 +342,10 @@ echo "Analysis Complete!"
     * Bash: You have to manually wrap every command in `apptainer exec ....`
     * Snakemake: You define the `container:` once per rule, and Snakemake handles the wrapping.
 
-```{admonition} Keypoints
+:::{admonition} Keypoints
 :class: important
 - **Integration:** You can wrap almost any existing script in Snakemake, provided the Input/Output filenames are predictable.
 - **Determinism:** If a script produces random timestamps or unique IDs in filenames, you must "patch" it to ensure Snakemake can track the files.
 - **Hybrid Environments:** While `container:` is preferred, you can explicitly call `apptainer exec` inside a `shell` block when you need complex environment sourcing (like `cmsenv`).
 - **Orchestration:** Snakemake can seamlessly connect completely different software stacks (e.g., Python/Coffea and C++/ROOT/Combine) into a single reproducible pipeline.
-```
+:::

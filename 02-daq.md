@@ -1,18 +1,18 @@
 # Chaining Rules (The DAG)
 
-```{admonition} Questions
+:::{admonition} Questions
 :class: tip
 - How does Snakemake connect different rules?
 - What is a DAG?
 - How does Snakemake know what to re-run?
-```
+:::
 
-```{admonition} Objectives
+:::{admonition} Objectives
 :class: note
 - Connect two rules by matching input/output filenames.
 - Use the `rule all` convention.
 - Observe "Lazy Execution" in action.
-```
+:::
 
 ## Thinking Backwards
 
@@ -77,7 +77,7 @@ Now you can simply run:
 pixi run snakemake --cores 1
 ```
 
-```{admonition} Challenge: Lazy Execution (The "Why")
+:::{admonition} Challenge: Lazy Execution (The "Why")
 :class: warning
 1. Run `pixi run snakemake --cores 1` again.
 
@@ -103,19 +103,19 @@ touch raw_data.txt
 
 What happens?
 
-```{dropdown} Solution
+:::{dropdown} Solution
 When you first run the command, Snakemake checks if `counts.txt` exists. Since it doesn't, it calculates the steps needed to create it. The second time you run the command, Snakemake sees that `counts.txt` exists and is newer than its inputs, so it does nothing.
 
 When you "touch" `raw_data.txt`, you update its modification time. Snakemake notices that an input (`raw_data.txt`) is now strictly newer than the downstream files (`skimmed_data.txt` and `counts.txt`). It marks them as "stale" and re-runs the chain.
 
 **This is the crucial benefit for large analyses.**
 If you had a workflow with 500 rules and you only modified the input for rule 499, Snakemake would **not** re-run rules 1 through 498. It selectively re-executes only the parts of the DAG that are affected by your change. In HEP terms: if you change a plotting style, you don't have to re-run the N-tuplizer.
-```
-```
+:::
+:::
 
-```{admonition} Keypoints
+:::{admonition} Keypoints
 :class: important
 - **Declarative Workflows**: Unlike bash scripts where you define the *order* of steps, in Snakemake you define the *dependencies* (inputs/outputs), and Snakemake figures out the order (DAG).
 - **The `all` Rule**: It is convention to include a rule named `all` at the top of the workflow to define the final targets of your analysis.
 - **Lazy Execution**: Snakemake only re-runs a rule if the output file is missing or if the input files have changed (have a newer timestamp) since the last run.
-```
+:::

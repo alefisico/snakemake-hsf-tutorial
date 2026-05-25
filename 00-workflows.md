@@ -1,18 +1,18 @@
 # The Why: Analysis Reproducibility
 
-```{admonition} Questions
+:::{admonition} Questions
 :class: tip
 - Why do we need workflow orchestration in HEP?
 - What are the three pillars of a reusable analysis?
 - Who is the primary beneficiary of a reproducible workflow?
-```
+:::
 
-```{admonition} Objectives
+:::{admonition} Objectives
 :class: note
 - Identify the "Knowledge Gap" in traditional HEP analyses.
 - Understand the three-step approach to capturing an analysis.
 - Recognize that reproducibility is a labor-saving tool for the analyst, not just a bureaucratic requirement.
-```
+:::
 
 ## The "Bus Factor" in HEP Analysis
 
@@ -43,16 +43,16 @@ Actually, the first person to benefit from a reproducible workflow is **you**.
 * **The "Re-discovery" Phase:** During the collaboration review process, you will inevitably be asked to change a systematic or re-run a plot with new data. A Snakemake workflow allows you to do this by changing one line and typing one command.
 * **Automation:** Instead of waiting for Step A to finish so you can manually start Step B, you can launch the whole chain and go get coffee.
 
-```{admonition} Who is the most frequent user of your analysis code?
+:::{admonition} Who is the most frequent user of your analysis code?
 :class: info
-```{dropdown} Solution
+:::{dropdown} Solution
 **Future You.** Six months from now, when you have to re-run your plots for a conference or a paper revision, you will thank "Past You" for writing a Snakefile instead of a 20-page README.
-```
-```
+:::
+:::
 
-```{admonition} Keypoints
+:::{admonition} Keypoints
 :class: important
 - Modern HEP analysis is too complex to be managed by memory or manual scripts.
 - Reproducibility is a **productivity tool**: it makes your own work easier to revise and update.
 - Capturing the **Workflow** (the "Glue") is the final step in ensuring an analysis is truly reusable.
-```
+:::

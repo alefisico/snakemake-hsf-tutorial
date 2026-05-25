@@ -1,18 +1,18 @@
 # Visualizing the Workflow
 
-```{admonition} Questions
+:::{admonition} Questions
 :class: tip
 - How can I see the dependencies between my rules?
 - What is a Directed Acyclic Graph (DAG)?
 - How do I preview what Snakemake *intends* to do?
-```
+:::
 
-```{admonition} Objectives
+:::{admonition} Objectives
 :class: note
 - Use the `--dag` flag to generate a visualization of the analysis.
 - Understand the difference between the Rule Graph and the File Graph.
 - Use dry-runs (`-n`) to verify the execution plan.
-```
+:::
 
 ## Seeing the Big Picture
 
@@ -56,7 +56,7 @@ How to read the DAG:
 pixi run snakemake --dag | dot -Tpng > fig/dag.png
 ```
 
-```{dropdown} For macOS users
+:::{dropdown} For macOS users
 It has been reported that the command above may not work due to differences in how `dot` is handled. If you encounter issues, try the following command instead:
 
 ```bash
@@ -69,22 +69,22 @@ or you can run:
 pixi run dot -C
 pixi run snakemake --dag | pixi run dot -Tpng > fig/dag.png
 ```
-```
+:::
 
 3. Open `fig/dag.png`. It should look like the following image. Notice how the branches for each dataset are parallel.
 
 ![DAG Visualization](fig/dag.png)
 
-```{admonition} Challenge: Identifying the Bottleneck
+:::{admonition} Challenge: Identifying the Bottleneck
 :class: warning
 Look at your DAG. If you were to run this on a machine with only **1 core**, how many steps would it take? If you had **4 cores**, how would the timing change?
 
-```{dropdown} Solution
+:::{dropdown} Solution
 With 1 core, Snakemake runs every job sequentially. With 4 cores, Snakemake can run all four `skim_data` jobs simultaneously, significantly reducing the "Wall Clock" time of your analysis. This is the power of a DAG-based system!
-```
-```
+:::
+:::
 
-```{note}
+:::{note}
 ### Rule Graph vs. File Graph
 
 If you have 1,000 samples, the `--dag` command will produce a giant PDF with 1,000 boxes, which is unreadable. To see a simplified version that only shows how the rules connect (ignoring the individual samples), use:
@@ -96,7 +96,7 @@ pixi run snakemake --rulegraph | dot -Tpng > fig/rulegraph.png
 This is often much more useful for complex HEP analyses to ensure the logic is correct.
 
 ![Rule Graph Visualization](fig/rulegraph.png)
-```
+:::
 
 ## The Dry-Run: "Look Before You Leap"
 
@@ -112,7 +112,7 @@ If you want more detail (like seeing the actual shell commands that will be exec
 pixi run snakemake -n -p
 ```
 
-```{dropdown} Did the previous command work?
+:::{dropdown} Did the previous command work?
 If you run this command on top of a finished workflow, you should see something like:
 
 ```output
@@ -127,11 +127,11 @@ Alternatively, if you want to see the dry-run or the commands to execute, use:
 ```bash
 pixi run snakemake -n -p --forceall
 ```
-```
+:::
 
-```{admonition} Keypoints
+:::{admonition} Keypoints
 :class: important
 - **DAG**: A visual map of your analysis dependencies.
 - **Dry-run (-n)**: Always perform a dry-run to verify the plan before executing.
 - **Rule Graph**: A simplified visualization showing the relationship between rules rather than individual files.
-```
+:::

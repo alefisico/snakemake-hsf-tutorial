@@ -1,18 +1,18 @@
 # Scaling with Wildcards
 
-```{admonition} Questions
+:::{admonition} Questions
 :class: tip
 - How can I use one rule to process multiple different samples?
 - What is a wildcard and how does Snakemake "fill" it?
 - How do I tell Snakemake to generate a list of all my target files?
-```
+:::
 
-```{admonition} Objectives
+:::{admonition} Objectives
 :class: note
 - Replace hardcoded filenames with `{wildcards}`.
 - Use the `expand()` function to generate lists of outputs.
 - Understand how Snakemake "pattern matches" files on disk.
-```
+:::
 
 ## Scaling Up: From One File to Many
 
@@ -58,7 +58,7 @@ rule all:
 
 The `expand()` function takes a pattern and replaces the placeholders with the values in your list. The code above produces: `["skimmed/DYJets.txt", "skimmed/TTbar.txt", "skimmed/WJets.txt"]`
 
-```{note}
+:::{note}
 ### Wildcards vs. Expand Variables
 
 Notice a subtle difference:
@@ -67,17 +67,17 @@ Notice a subtle difference:
 2. In `rule all`, we used `{s}` inside `expand()`. This is a Python string formatting variable.
 
 They do not need to match! `expand()` happens before the rules run to generate the list of target files. The rules run after to figure out how to create those files.
-```
+:::
 
 ---
 
 ## Activity: Processing Multiple Datasets
 
-```{note}
+:::{note}
 **Instructor Notes:**
 - **Parallelism:** This is the best moment to explain why the `--cores` flag matters. In HEP, we are used to sending 100 jobs to Condor. Here, we show they can run 4 (or 8, or 16) jobs in parallel locally on their laptop with zero extra effort.
 - **The "Pattern Matching" Warning:** Students often try to put wildcards in the `input` that aren't in the `output`. I would emphasize that Snakemake works **backwards**: it sees a file it wants (the output) and then tries to figure out what the input should be.
-```
+:::
 
 Let's modify our `Snakefile` to handle three different simulated datasets.
 
@@ -125,22 +125,22 @@ echo -e "Background\nBackground" > raw/Data.txt
 pixi run snakemake --cores 4
 ```
 
-```{admonition} Challenge: Adding a new sample
+:::{admonition} Challenge: Adding a new sample
 :class: warning
 Add a new dataset called `WJets` to your `DATASETS` list.
 
 1. Create the dummy file `raw/WJets.txt` with some "Signal" lines.
 2. Run Snakemake again.
 
-```{dropdown} Solution
+:::{dropdown} Solution
 Observe how Snakemake only runs the rules for the new `WJets` sample and skips the ones that were already finished (`DYJets`, `TTbar`, `Data`).
-```
-```
+:::
+:::
 
-```{admonition} Keypoints
+:::{admonition} Keypoints
 :class: important
 - **Wildcards**: Use `{name}` in filenames to define a generic rule.
 - **Constraints**: Snakemake fills wildcards by looking at the *output* you requested and propagating that value to the *input*.
 - **expand()**: A Python function that generates a list of filenames from a pattern. It is commonly used in `rule all` to define the final targets.
 - **Parallelism**: With wildcards, Snakemake can run multiple independent jobs in parallel using the `--cores` flag.
-```
+:::

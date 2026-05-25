@@ -1,18 +1,18 @@
 # Containerized Execution
 
-```{admonition} Questions
+:::{admonition} Questions
 :class: tip
 - How do I run specific steps of my analysis in a controlled environment?
 - How can I use ROOT or specific Python versions without installing them locally?
 - How does Snakemake handle Apptainer/Singularity?
-```
+:::
 
-```{admonition} Objectives
+:::{admonition} Objectives
 :class: note
 - Use the `container:` directive to link a rule to a Docker/Apptainer image.
 - Execute a workflow where different rules use different environments.
 - Understand the `--use-apptainer` (or `--use-singularity`) flag.
-```
+:::
 
 ## Containers: Your Analysis in a Box
 
@@ -22,11 +22,11 @@ Snakemake makes this seamless. You can tell a specific rule to run inside a cont
 
 ---
 
-```{note}
+:::{note}
 **Instructor Notes:**
 - **The cluster connection:** This is where you should mention that on most HEP clusters (like LXPLUS or regional computing centers), `singularity` or `apptainer` is already installed. This makes their local tutorial 100% transferable to the big machines.
 - **Binding directories:** Students often ask how the container sees their files. It's worth a small note that Snakemake automatically "binds" the project directory so the container sees the code and data.
-```
+:::
 
 ## The `container:` Directive
 
@@ -59,7 +59,7 @@ When you run Snakemake with the `--use-apptainer` flag:
 - **Isolation**: Rule A can use `python:2.7` while Rule B uses `python:3.11`. *No more version conflicts!*
 - **No Installation**: You don't need to install `ROOT` or other complex software on your machine; you just need to point to the image.
 
-```{note}
+:::{note}
 ### A Note on Apptainer Installation
 
 While we are using **Pixi** to manage Snakemake and our local Python tools, Pixi does not typically install Apptainer/Singularity itself. This is because Apptainer requires specific system-level permissions to manage containers safely. 
@@ -68,7 +68,7 @@ While we are using **Pixi** to manage Snakemake and our local Python tools, Pixi
 * **On HEP Clusters (e.g. LXPLUS):** Apptainer is already pre-installed by the administrators. 
 
 Before proceeding, verify you have it by running: `apptainer --version`.
-```
+:::
 
 ---
 
@@ -114,9 +114,9 @@ rule plot_results:
 pixi run snakemake --cores 1 --use-apptainer
 ```
 
-```{note}
+:::{note}
 Please note that the previous exercise will create empty "plots" since the `plotter.py` is just a placeholder. The point is to see the container in action, not to generate real plots!
-```
+:::
 
 **Did it work?** Depending on where you run it, this answer may vary. If you are running on a cluster, you might get an error about bindings or permissions. This is the next topic we'll cover.
 
@@ -134,7 +134,7 @@ pixi run snakemake --cores 1 --use-apptainer --apptainer-args "--bind /eos:/eos 
 
 This tells Apptainer: "Poke a hole in the container so I can see `/eos` and `/cvmfs` from the outside."
 
-```{admonition} Challenge: Different Containers for Different Tasks
+:::{admonition} Challenge: Different Containers for Different Tasks
 :class: warning
 Imagine your `skim_data` rule requires an old C++ library only available in a legacy environment, but your `plot_results` rule needs a modern `coffea` environment.
 
@@ -142,15 +142,15 @@ Imagine your `skim_data` rule requires an old C++ library only available in a le
 
 2. Try changing the container: in `plot_results` to `docker://alpine:latest` and run it. What happens?
 
-```{dropdown} Solution
+:::{dropdown} Solution
 Yes! Snakemake is designed for this. It will start the correct container for each specific job. If you switch to alpine:latest, the job will fail because alpine does not have python installed by default—this proves the command is truly running inside the isolated container!
-```
-```
+:::
+:::
 
-```{admonition} Keypoints
+:::{admonition} Keypoints
 :class: important
 - **container:**: A rule-level directive that specifies the Docker/Apptainer image to use.
 - **--use-apptainer**: The command-line flag required to enable container execution.
 - **--apptainer-args**: Use this to bind external storage paths (like `/eos` or `/cvmfs`) so the container can see them.
 - **Environment Agnostic**: You can mix and match different containers in a single workflow, ensuring each step has the exact dependencies it needs.
-```
+:::

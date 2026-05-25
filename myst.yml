@@ -1,0 +1,16 @@
+version: 1
+project:
+  title: Snakemake for HEP Analysis Tutorial
+  authors:
+    - name: HEP Software Foundation
+  toc:
+    - file: intro.md
+    - file: 00-workflows.md
+    - file: 01-intro.md
+    - file: 02-daq.md
+    - file: 03-scaling.md
+    - file: 04-visualizing.md
+    - file: 05-containers.md
+    - file: 06-bonus.md
+site:
+  template: book-theme

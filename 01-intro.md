@@ -12,7 +12,6 @@
 - Execute a specific target file.
 :::
 
-![Snakemake Logo](https://raw.githubusercontent.com/snakemake/snakemake/main/docs/logo-snake.svg){align="right" style="width: 150px; margin-left: 20px;"}
 
 ## Why Snakemake for HEP?
 

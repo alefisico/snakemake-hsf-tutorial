@@ -1,5 +1,7 @@
 # Snakemake for HEP Analysis Tutorial
 
+<img src="https://raw.githubusercontent.com/snakemake/snakemake/main/docs/logo-snake.svg" align="right" width="120px" alt="Snakemake Logo" />
+
 [![Build status](https://github.com/alefisico/snakemake-hsf-tutorial/actions/workflows/deploy.yml/badge.svg)](https://github.com/alefisico/snakemake-hsf-tutorial/actions/workflows/deploy.yml)
 [![HSF Training Center](https://img.shields.io/badge/HSF%20Training%20Center-browse-ff69b4)](https://hepsoftwarefoundation.org/training/curriculum.html)
 

@@ -14,3 +14,8 @@ project:
     - file: 05-containers.md
 site:
   template: book-theme
+  options:
+    logo: hsf-logo.svg
+  parts:
+    primary_sidebar_footer: ""
+

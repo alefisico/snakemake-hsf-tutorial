@@ -4,7 +4,8 @@ project:
   authors:
     - name: HEP Software Foundation
   toc:
-    - file: intro.md
+    - file: README.md
+    - file: setup.md
     - file: 00-workflows.md
     - file: 01-intro.md
     - file: 02-daq.md

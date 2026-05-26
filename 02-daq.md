@@ -75,7 +75,7 @@ Now you can simply run:
 pixi run snakemake --cores 1
 ```
 
-:::{warning} Challenge: Lazy Execution (The "Why")
+::::{warning} Challenge: Lazy Execution (The "Why")
 1. Run `pixi run snakemake --cores 1` again.
 
 What happens? 
@@ -108,7 +108,7 @@ When you "touch" `raw_data.txt`, you update its modification time. Snakemake not
 **This is the crucial benefit for large analyses.**
 If you had a workflow with 500 rules and you only modified the input for rule 499, Snakemake would **not** re-run rules 1 through 498. It selectively re-executes only the parts of the DAG that are affected by your change. In HEP terms: if you change a plotting style, you don't have to re-run the N-tuplizer.
 :::
-:::
+::::
 
 :::{important} Keypoints
 - **Declarative Workflows**: Unlike bash scripts where you define the *order* of steps, in Snakemake you define the *dependencies* (inputs/outputs), and Snakemake figures out the order (DAG).

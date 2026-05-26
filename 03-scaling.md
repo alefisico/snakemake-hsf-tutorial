@@ -120,7 +120,7 @@ echo -e "Background\nBackground" > raw/Data.txt
 pixi run snakemake --cores 4
 ```
 
-:::{warning} Challenge: Adding a new sample
+::::{warning} Challenge: Adding a new sample
 Add a new dataset called `WJets` to your `DATASETS` list.
 
 1. Create the dummy file `raw/WJets.txt` with some "Signal" lines.
@@ -129,7 +129,7 @@ Add a new dataset called `WJets` to your `DATASETS` list.
 :::{dropdown} Solution
 Observe how Snakemake only runs the rules for the new `WJets` sample and skips the ones that were already finished (`DYJets`, `TTbar`, `Data`).
 :::
-:::
+::::
 
 :::{important} Keypoints
 - **Wildcards**: Use `{name}` in filenames to define a generic rule.

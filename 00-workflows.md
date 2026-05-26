@@ -41,11 +41,11 @@ Actually, the first person to benefit from a reproducible workflow is **you**.
 * **The "Re-discovery" Phase:** During the collaboration review process, you will inevitably be asked to change a systematic or re-run a plot with new data. A Snakemake workflow allows you to do this by changing one line and typing one command.
 * **Automation:** Instead of waiting for Step A to finish so you can manually start Step B, you can launch the whole chain and go get coffee.
 
-:::{note} Who is the most frequent user of your analysis code?
+::::{note} Who is the most frequent user of your analysis code?
 :::{dropdown} Solution
 **Future You.** Six months from now, when you have to re-run your plots for a conference or a paper revision, you will thank "Past You" for writing a Snakefile instead of a 20-page README.
 :::
-:::
+::::
 
 :::{important} Keypoints
 - Modern HEP analysis is too complex to be managed by memory or manual scripts.

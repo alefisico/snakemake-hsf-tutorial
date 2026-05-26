@@ -73,13 +73,13 @@ pixi run snakemake --dag | pixi run dot -Tpng > fig/dag.png
 
 ![DAG Visualization](fig/dag.png)
 
-:::{warning} Challenge: Identifying the Bottleneck
+::::{warning} Challenge: Identifying the Bottleneck
 Look at your DAG. If you were to run this on a machine with only **1 core**, how many steps would it take? If you had **4 cores**, how would the timing change?
 
 :::{dropdown} Solution
 With 1 core, Snakemake runs every job sequentially. With 4 cores, Snakemake can run all four `skim_data` jobs simultaneously, significantly reducing the "Wall Clock" time of your analysis. This is the power of a DAG-based system!
 :::
-:::
+::::
 
 :::{note} Rule Graph vs. File Graph
 If you have 1,000 samples, the `--dag` command will produce a giant PDF with 1,000 boxes, which is unreadable. To see a simplified version that only shows how the rules connect (ignoring the individual samples), use:

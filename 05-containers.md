@@ -129,7 +129,7 @@ pixi run snakemake --cores 1 --use-apptainer --apptainer-args "--bind /eos:/eos 
 
 This tells Apptainer: "Poke a hole in the container so I can see `/eos` and `/cvmfs` from the outside."
 
-:::{warning} Challenge: Different Containers for Different Tasks
+::::{warning} Challenge: Different Containers for Different Tasks
 Imagine your `skim_data` rule requires an old C++ library only available in a legacy environment, but your `plot_results` rule needs a modern `coffea` environment.
 
 1. Can you assign different `container:` directives to different rules in the same `Snakefile`?
@@ -139,7 +139,7 @@ Imagine your `skim_data` rule requires an old C++ library only available in a le
 :::{dropdown} Solution
 Yes! Snakemake is designed for this. It will start the correct container for each specific job. If you switch to alpine:latest, the job will fail because alpine does not have python installed by default—this proves the command is truly running inside the isolated container!
 :::
-:::
+::::
 
 :::{important} Keypoints
 - **container:**: A rule-level directive that specifies the Docker/Apptainer image to use.

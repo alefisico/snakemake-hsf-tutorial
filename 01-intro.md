@@ -156,7 +156,7 @@ snakemake --cores 1 counts.txt
 This will be the case for most users following this tutorial outside of the pixi environment.
 :::
 
-:::{warning} Challenge: Syntax Error Hunt
+::::{warning} Challenge: Syntax Error Hunt
 Intentionally break your indentation (remove a space before `input:`). Run the command again.
 
 What error does Snakemake give you?
@@ -164,7 +164,7 @@ What error does Snakemake give you?
 :::{dropdown} Solution
 This `IndentationError` is the most common error you will encounter.
 :::
-:::
+::::
 
 :::{important} Keypoints
 - A `Snakefile` defines the workflow.
